@@ -772,6 +772,27 @@ int main(int argc, const char **argv) {
             free(cmd);
         }
 
+        if (test_is_selected("pfadd")) {
+            len = redisFormatCommand(&cmd,
+                                     "PFADD myhll element:__rand_int__");
+            benchmark("PFADD",cmd,len);
+            free(cmd);
+        }
+
+        if (test_is_selected("hll")) {
+            len = redisFormatCommand(&cmd,
+                                     "pfadd myhll:__rand_int__ element:__rand_int__");
+            benchmark("HLL",cmd,len);
+            free(cmd);
+        }
+
+        if (test_is_selected("pfcount")) {
+            len = redisFormatCommand(&cmd,
+                                     "pfcount myhll:__rand_int__");
+            benchmark("PFCOUNT",cmd,len);
+            free(cmd);
+        }
+
         if (test_is_selected("sadd")) {
             len = redisFormatCommand(&cmd,
                 "SADD myset element:__rand_int__");
